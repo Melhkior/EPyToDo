@@ -9,9 +9,11 @@
   ('/products', 'products', 'Products'),
   ('/account', 'account', 'Account')
   ] -%}
-  <input type="text" value="Personal ID">
-  <input type="password" value="Mot de passe">
-  <input type="button" value="Login in">
+  <form method="post">
+    <p><input type=text name=username>
+    <p><input type=text name=password>
+    <p><input type=submit value=Login>
+  </form>
   <nav>
     <ul>
       {% for href, id, caption in navlist %}
@@ -24,3 +26,4 @@
   </p>
 </body>
 </html>
+
