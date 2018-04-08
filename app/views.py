@@ -48,6 +48,7 @@ def client_register():
 @app.route('/user', methods=['GET', 'POST'])
 def user_account():
     result = {"error" : "internal error"}
+    user_res = {"error" : "internal error"}
     if has_connect() == True:
         user_res = get_user_data()
     else:

@@ -132,8 +132,29 @@ def get_user_data():
             rows = cursor.fetchall()
             _user_id = rows[0][0]
             _password = rows[0][2]
-            print(_password)
             conn.close()            
     except:
         traceback.print_exc()
     return (["User ID : " + str(_user_id), "Username : " + _username, "Password : " + _password])
+
+def get_user_task():
+    _username = session.get('username')
+    _user_id = 0
+    _fk_task_id = 0
+    try:
+        conn = sq1.connect(host='localhost',
+                           user='root',
+                           unix_socket='/var/lib/mysql/mysql.sock',
+                           passwd='El_000_153',
+                           db='epytodo')
+	cursor = conn.cursor()
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT id FROM user WHERE username = %s", (_username))
+            rows = cursor.fetchall()
+            _user_id = rows[0][0]
+            cursor.execute("SELECT fk_task_id FROM user WHERE fk_user_id = %s", (_username))
+            rows = cursor.fetchall()
+            _fk_task_id = rows
+    except:
+        traceback.print_exc()
+
