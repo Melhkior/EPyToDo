@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <h1>User information</h1>
+    <p>
+      {% for user in user_res %}
+      <li> {{user}} </li>
+      {% endfor %}
+    </p>
+  </body>
+</html>
+
+

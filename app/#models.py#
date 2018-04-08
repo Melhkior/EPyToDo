@@ -137,3 +137,10 @@ def get_user_data():
     except:
         traceback.print_exc()
     return (["User ID : " + str(_user_id), "Username : " + _username, "Password : " + _password])
+
+def get_task_data():
+    _task_id = []
+    _title = []
+    _begin = []
+    _end = []
+    _status = []

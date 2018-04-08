@@ -4,23 +4,6 @@
   <title>{{ title }}</title>
 </head>
 <body>
-  {% set navlist = [
-  ('/', 'index ', 'Index'),
-  ('/products', 'products', 'Products'),
-  ('/account', 'account', 'Account')
-  ] -%}
-  <input type="text" value="Personal ID">
-  <input type="password" value="Mot de passe">
-  <input type="button" value="Login in">
-  <nav>
-    <ul>
-      {% for href, id, caption in navlist %}
-      <li id ="{{ id|e }}" href="{{ href|e }}">{{ caption|e }} </li>
-      {% endfor %}
-    </ul>
-  </nav>
-  <p>
-    Some content
-  </p>
+  <h1>{{ subtitle }}</h1>
 </body>
 </html>
