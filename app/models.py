@@ -147,7 +147,7 @@ def get_user_task():
                            unix_socket='/var/lib/mysql/mysql.sock',
                            passwd='El_000_153',
                            db='epytodo')
-	cursor = conn.cursor()
+        cursor = conn.cursor()
         with conn.cursor() as cursor:
             cursor.execute("SELECT id FROM user WHERE username = %s", (_username))
             rows = cursor.fetchall()
