@@ -4,6 +4,7 @@ import pymysql as sq1
 from flask import Flask, render_template, request, jsonify, session
 import pymysql.cursors
 import traceback
+from config import *
 
 def has_connect():
     if 'username' in session:
@@ -34,11 +35,11 @@ def password_exist(username, password, cursor):
 def check_login(username, password):
     abool = False
     try:
-        conn = sq1.connect(host='localhost',
-                           user='root',
-                           unix_socket='/var/lib/mysql/mysql.sock',
-                           passwd='El_000_153',
-                           db='epytodo')
+        conn = sq1.connect(host=DATABASE_HOST,
+                           user=DATABASE_USER,
+                           unix_socket=DATABASE_SOCK,
+                           passwd=DATABASE_PASS,
+                           db=DATABASE_NAME)
         with conn.cursor() as cursor:
             if user_exist(username, cursor) == True and password_exist(username, password, cursor) == True:
                 abool = True
@@ -52,11 +53,11 @@ def register(username, password):
     res = {"result" : "account created"}
     result = {"error" : "internal error"}
     try:
-        conn = sq1.connect(host='localhost',
-                           user='root',
-                           unix_socket='/var/lib/mysql/mysql.sock',
-                           passwd='El_000_153',
-                           db='epytodo')
+        conn = sq1.connect(host=DATABASE_HOST,
+                           user=DATABASE_USER,
+                           unix_socket=DATABASE_SOCK,
+                           passwd=DATABASE_PASS,
+                           db=DATABASE_NAME)
         with conn.cursor() as cursor:
             if user_exist(username, cursor) == False:
                 sql = "INSERT INTO user (username, password) VALUES (%s, %s)"
@@ -74,11 +75,11 @@ def add_task(title, begin, end, status):
     err = {"error" : "internal error"}
     result = {"result" : "new task added"}
     try:
-        conn = sq1.connect(host='localhost',
-                           user='root',
-                           unix_socket='/var/lib/mysql/mysql.sock',
-                           passwd='El_000_153',
-                           db='epytodo')
+        conn = sq1.connect(host=DATABASE_HOST,
+                           user=DATABASE_USER,
+                           unix_socket=DATABASE_SOCK,
+                           passwd=DATABASE_PASS,
+                           db=DATABASE_NAME)
         with conn.cursor() as cursor:
             sql = "INSERT INTO task (title, begin, end, status) VALUES (%s, %s, %s, %s)"
             cursor.execute(sql, (title, begin, end, status))
@@ -90,11 +91,11 @@ def add_task(title, begin, end, status):
 
 def del_task(task_id, username):
     try:
-        conn = sq1.connect(host='localhost',
-                           user='root',
-                           unix_socket='/var/lib/mysql/mysql.sock',
-                           passwd='El_000_153',
-                           db='epytodo')
+        conn = sq1.connect(host=DATABASE_HOST,
+                           user=DATABASE_USER,
+                           unix_socket=DATABASE_SOCK,
+                           passwd=DATABASE_PASS,
+                           db=DATABASE_NAME)
         with conn.cursor() as cursor:
             #DEL LA TASK SI L'UTILISATEUR LA DETIEN ET SI ELLE EXISTE
             plop = "plop"
@@ -104,11 +105,11 @@ def del_task(task_id, username):
             
 def modif_task(task_id, username):
     try:
-        conn = sq1.connect(host='localhost',
-                           user='root',
-                           unix_socket='/var/lib/mysql/mysql.sock',
-                           passwd='El_000_153',
-                           db='epytodo')
+        conn = sq1.connect(host=DATABASE_HOST,
+                           user=DATABASE_USER,
+                           unix_socket=DATABASE_SOCK,
+                           passwd=DATABASE_PASS,
+                           db=DATABASE_NAME)
         with conn.cursor() as cursor:
             plop = "plop"
         #MODIF LA TASK DE L'USER PAR SON ID SI IL DETIENT LES DROIT ET SI ELLE EXISTE
@@ -121,11 +122,11 @@ def get_user_data():
     _user_id = 0
     _password = 0
     try:
-        conn = sq1.connect(host='localhost',
-                           user='root',
-                           unix_socket='/var/lib/mysql/mysql.sock',
-                           passwd='El_000_153',
-                           db='epytodo')
+        conn = sq1.connect(host=DATABASE_HOST,
+                           user=DATABASE_USER,
+                           unix_socket=DATABASE_SOCK,
+                           passwd=DATABASE_PASS,
+                           db=DATABASE_NAME)
         cursor = conn.cursor()
         with conn.cursor() as cursor:
             cursor.execute("SELECT * FROM user WHERE username = %s", (_username))
@@ -142,11 +143,11 @@ def get_user_task():
     _user_id = 0
     _fk_task_id = 0
     try:
-        conn = sq1.connect(host='localhost',
-                           user='root',
-                           unix_socket='/var/lib/mysql/mysql.sock',
-                           passwd='El_000_153',
-                           db='epytodo')
+        conn = sq1.connect(host=DATABASE_HOST,
+                           user=DATABASE_USER,
+                           unix_socket=DATABASE_SOCK,
+                           passwd=DATABASE_PASS,
+                           db=DATABASE_NAME)
         cursor = conn.cursor()
         with conn.cursor() as cursor:
             cursor.execute("SELECT id FROM user WHERE username = %s", (_username))
@@ -157,4 +158,3 @@ def get_user_task():
             _fk_task_id = rows
     except:
         traceback.print_exc()
-
